@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lanier Developments — Kevin "Mac" McAllorum</title>
+<meta name="description" content="AI/ML engineering and platform architecture. Production AI systems, multi-agent orchestration, and the DevOps backbone to run them — by principal engineer Kevin 'Mac' McAllorum." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ground: #0E1116;
+    --surface: #151A21;
+    --surface-2: #1B212B;
+    --line: #242C38;
+    --line-soft: #1E2530;
+    --text: #E7ECF3;
+    --muted: #8B95A6;
+    --faint: #5A6473;
+    --ember: #F2683C;
+    --ember-dim: rgba(242, 104, 60, 0.14);
+    --maxw: 1080px;
+    --r: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  /* ---------- TOP BAR ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(14, 17, 22, 0.82);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 58px;
+  }
+  .brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .brand b { color: var(--text); font-weight: 600; }
+  .brand .sep { color: var(--ember); }
+  .brand .sub { color: var(--faint); }
+
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--ember);
+    box-shadow: 0 0 0 0 rgba(242,104,60,0.55);
+    animation: pulse 2.4s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(242,104,60,0.5); }
+    70%  { box-shadow: 0 0 0 7px rgba(242,104,60,0); }
+    100% { box-shadow: 0 0 0 0 rgba(242,104,60,0); }
+  }
+  @media (prefers-reduced-motion: reduce) { .dot { animation: none; } }
+  .status .clock { color: var(--faint); }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    padding: 92px 0 78px;
+    border-bottom: 1px solid var(--line-soft);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 30% 0%, #000 0%, transparent 75%);
+    mask-image: radial-gradient(ellipse 80% 70% at 30% 0%, #000 0%, transparent 75%);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .hero .wrap { position: relative; }
+
+  .hero h1 {
+    font-size: clamp(33px, 5.6vw, 60px);
+    line-height: 1.04;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 20px 0 0;
+    max-width: 16ch;
+  }
+  .hero h1 .accent { color: var(--ember); }
+
+  .lede {
+    margin-top: 22px;
+    font-size: clamp(16px, 1.7vw, 19px);
+    color: var(--muted);
+    max-width: 56ch;
+  }
+  .lede b { color: var(--text); font-weight: 600; }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 34px;
+  }
+  .btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    padding: 12px 20px;
+    border-radius: var(--r);
+    border: 1px solid var(--line);
+    transition: border-color .18s, background .18s, transform .18s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn.primary {
+    background: var(--ember);
+    color: #170B05;
+    border-color: var(--ember);
+    font-weight: 600;
+  }
+  .btn.primary:hover { transform: translateY(-1px); background: #ff7647; }
+  .btn:not(.primary):hover { border-color: var(--ember); color: #fff; }
+  .btn .arr { color: var(--ember); }
+  .btn.primary .arr { color: #170B05; }
+
+  /* hero reveal */
+  .reveal { opacity: 0; transform: translateY(14px); animation: rise .7s cubic-bezier(.2,.7,.3,1) forwards; }
+  .reveal.d1 { animation-delay: .05s; }
+  .reveal.d2 { animation-delay: .15s; }
+  .reveal.d3 { animation-delay: .25s; }
+  .reveal.d4 { animation-delay: .35s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { animation: none; opacity: 1; transform: none; }
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section { padding: 76px 0; border-bottom: 1px solid var(--line-soft); }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 38px;
+  }
+  .sec-head h2 {
+    font-size: 13px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .sec-head .rule {
+    flex: 1;
+    height: 1px;
+    background: var(--line-soft);
+    transform: translateY(-3px);
+  }
+  .sec-head .idx { color: var(--ember); font-family: 'IBM Plex Mono', monospace; font-size: 13px; }
+
+  /* ---------- CAPABILITIES ---------- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line-soft);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r);
+    overflow: hidden;
+  }
+  .cell {
+    background: var(--surface);
+    padding: 30px 28px;
+    transition: background .2s;
+  }
+  .cell:hover { background: var(--surface-2); }
+  .cell .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--ember);
+    text-transform: uppercase;
+  }
+  .cell h3 {
+    font-size: 19px;
+    font-weight: 600;
+    margin: 12px 0 9px;
+    letter-spacing: -0.01em;
+  }
+  .cell p { color: var(--muted); font-size: 15px; }
+
+  /* ---------- SELECTED WORK ---------- */
+  .work-item {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 28px;
+    padding: 26px 0;
+    border-top: 1px solid var(--line-soft);
+    align-items: start;
+  }
+  .work-item:first-of-type { border-top: none; padding-top: 0; }
+  .work-meta .name { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
+  .work-meta .badge {
+    display: inline-block;
+    margin-top: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 3px 8px;
+  }
+  .work-item p { color: var(--muted); font-size: 15px; max-width: 64ch; }
+  .work-item p .hl { color: var(--text); }
+
+  /* ---------- CAREER STRIP ---------- */
+  .career {
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r);
+    padding: 30px 30px;
+  }
+  .path {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(13px, 1.8vw, 16px);
+    color: var(--text);
+    letter-spacing: 0.01em;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+  .path .arrow { color: var(--ember); }
+  .path .now { color: var(--ember); }
+  .career .note { color: var(--muted); margin-top: 14px; font-size: 15px; }
+
+  .books {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 24px;
+  }
+  .book {
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r);
+    padding: 22px 22px;
+    background: var(--surface);
+  }
+  .book .kicker { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.14em; color:var(--faint); text-transform:uppercase; }
+  .book .title { font-weight:600; font-size:16px; margin:9px 0 6px; }
+  .book p { color: var(--muted); font-size: 14px; }
+
+  /* ---------- CONTACT ---------- */
+  .contact { text-align: left; }
+  .contact h2.big {
+    font-size: clamp(28px, 4.4vw, 44px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    max-width: 18ch;
+  }
+  .contact h2.big .accent { color: var(--ember); }
+  .contact .sub { color: var(--muted); margin-top: 16px; max-width: 52ch; font-size: 17px; }
+  .links {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .entity {
+    margin-top: 28px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--faint);
+    border-left: 2px solid var(--ember);
+    padding-left: 12px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    padding: 30px 0 46px;
+    border-bottom: none;
+  }
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: var(--faint);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 720px) {
+    .grid { grid-template-columns: 1fr; }
+    .work-item { grid-template-columns: 1fr; gap: 12px; }
+    .books { grid-template-columns: 1fr; }
+    .status .label { display: none; }
+    .hero { padding: 64px 0 56px; }
+    section { padding: 58px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <div class="brand">
+      <b>LANIER</b><span class="sep">//</span><span class="sub">DEVELOPMENTS</span>
+    </div>
+    <div class="status">
+      <span class="dot" aria-hidden="true"></span>
+      <span class="label">AVAILABLE FOR ENGAGEMENTS</span>
+      <span class="clock" id="clock" aria-hidden="true"></span>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow reveal d1">AI/ML Engineering — Platform Architecture — Grove City, OH</p>
+    <h1 class="reveal d2">Production AI, engineered to <span class="accent">enterprise standard.</span></h1>
+    <p class="lede reveal d3">
+      I'm Kevin McAllorum — engineers call me Mac. I pair two decades of high-availability
+      platform architecture with <b>hands-on, in-production AI systems</b>: multi-agent
+      development, LLM pipelines, and the DevOps backbone to run them where compliance,
+      uptime, and governance actually matter.
+    </p>
+    <div class="cta-row reveal d4">
+      <a class="btn primary" href="mailto:contactus@lanierdevelopments.dev">Start a conversation <span class="arr">→</span></a>
+      <a class="btn" href="https://github.com/Lanier-Developments" target="_blank" rel="noopener">GitHub <span class="arr">↗</span></a>
+      <a class="btn" href="https://www.linkedin.com/in/kmcallorum" target="_blank" rel="noopener">LinkedIn <span class="arr">↗</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="idx">01</span>
+      <h2>What I do</h2>
+      <span class="rule"></span>
+    </div>
+    <div class="grid">
+      <div class="cell">
+        <span class="tag">AI Systems</span>
+        <h3>Multi-agent &amp; LLM engineering</h3>
+        <p>Multi-model pipelines, multi-agent orchestration, RAG, and Model Context Protocol integrations — designed to run in production, not just in a demo.</p>
+      </div>
+      <div class="cell">
+        <span class="tag">Transformation</span>
+        <h3>AI-augmented SDLC</h3>
+        <p>I built and co-taught an enterprise program that moved engineering teams onto AI-assisted workflows. The hard part isn't the tooling — it's adoption. I do both.</p>
+      </div>
+      <div class="cell">
+        <span class="tag">Platform</span>
+        <h3>DevOps &amp; CI/CD architecture</h3>
+        <p>Jenkins, GitHub Actions, IaC, and deployment platforms sustained at 99.9% uptime across five-plus years — including regulated GovCloud environments.</p>
+      </div>
+      <div class="cell">
+        <span class="tag">Observability</span>
+        <h3>Cloud &amp; telemetry</h3>
+        <p>AWS, Azure, Kubernetes, OpenShift, k3s, and custom Prometheus exporters. If it's running, you can see it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="proof">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="idx">02</span>
+      <h2>Selected work</h2>
+      <span class="rule"></span>
+    </div>
+
+    <div class="work-item">
+      <div class="work-meta">
+        <div class="name">AI-Synthesize</div>
+        <span class="badge">SAAS · OPEN-CORE</span>
+      </div>
+      <p>Generates fully executable test suites from plain-English descriptions across six frameworks — <span class="hl">Robot, Playwright, Cypress, Selenium, pytest, and Cucumber</span> — with LLM-backed self-healing tests, a token-reduction layer for cost control, and automated SOC2/HIPAA compliance mapping.</p>
+    </div>
+
+    <div class="work-item">
+      <div class="work-meta">
+        <div class="name">AI Marketplace</div>
+        <span class="badge">OSS · CLI</span>
+      </div>
+      <p>A unified catalog and registry for open-source AI/ML packages, with a multi-platform CLI that abstracts <span class="hl">pip, Homebrew, and other installers</span> behind one command — and lets multi-registry publishers enforce a preferred install vector.</p>
+    </div>
+
+    <div class="work-item">
+      <div class="work-meta">
+        <div class="name">The Forge</div>
+        <span class="badge">HOME LAB · K3S</span>
+      </div>
+      <p>A bare-metal k3s cluster running a full DevSecOps pipeline: <span class="hl">Gitea for source and CI, Harbor with Trivy scanning, and Prometheus telemetry</span>. Production discipline, run at home — because the best way to keep the edge sharp is to use it daily.</p>
+    </div>
+  </div>
+</section>
+
+<section id="track">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="idx">03</span>
+      <h2>Track record</h2>
+      <span class="rule"></span>
+    </div>
+    <div class="career">
+      <div class="path">
+        <span>AT&amp;T</span><span class="arrow">→</span>
+        <span>Elite Systems</span><span class="arrow">→</span>
+        <span class="now">UnitedHealth Group / Optum</span>
+      </div>
+      <p class="note">Principal Engineer. 40+ years building the systems underneath — from core telecom infrastructure and Tier-1 enterprise architecture to the AI platforms reshaping how engineering teams ship today.</p>
+    </div>
+
+    <div class="books">
+      <div class="book">
+        <div class="kicker">Book</div>
+        <div class="title">AI-Augmented Engineering Leadership</div>
+        <p>A strategic guide to leading and scaling AI-assisted engineering teams.</p>
+      </div>
+      <div class="book">
+        <div class="kicker">Book</div>
+        <div class="title">Behind the Steel Door</div>
+        <p>A practitioner's account of designing and building a secure, multi-model AI development workflow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <p class="eyebrow" style="margin-bottom:18px;">Get in touch</p>
+    <h2 class="big">Have a system that needs <span class="accent">building or fixing?</span></h2>
+    <p class="sub">Consulting, architecture review, AI transformation, or a straight engineering build — start with an email and we'll figure out the shape of it.</p>
+    <div class="links">
+      <a class="btn primary" href="mailto:contactus@lanierdevelopments.dev">contactus@lanierdevelopments.dev <span class="arr">→</span></a>
+      <a class="btn" href="https://www.linkedin.com/in/kmcallorum" target="_blank" rel="noopener">LinkedIn <span class="arr">↗</span></a>
+      <a class="btn" href="https://github.com/Lanier-Developments" target="_blank" rel="noopener">GitHub <span class="arr">↗</span></a>
+    </div>
+    <p class="entity">Lanier Developments LLC — a registered Ohio company, structured for W-2, C2C, and 1099 engagements.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span>LANIER // DEVELOPMENTS LLC</span>
+    <span>KEVIN "MAC" McALLORUM · GROVE CITY, OH</span>
+    <span>© <span id="year"></span> Lanier Developments LLC</span>
+  </div>
+</footer>
+
+<script>
+  // Local clock — small instrument-panel touch
+  (function () {
+    var clock = document.getElementById('clock');
+    function tick() {
+      var now = new Date();
+      var t = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+      var z = (now.toLocaleTimeString('en-US', { timeZoneName: 'short' }).split(' ').pop()) || '';
+      clock.textContent = t + ' ' + z;
+    }
+    tick();
+    setInterval(tick, 1000 * 15);
+    document.getElementById('year').textContent = new Date().getFullYear();
+  })();
+</script>
+
+</body>
+</html>
+
