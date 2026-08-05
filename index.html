@@ -4,182 +4,178 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lanier Developments — AI Engineering Consultancy</title>
+<meta name="description" content="Lanier Developments builds production agentic systems and the platform discipline to run them. Every architecture decision is reviewed across two independent model families before it ships.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Public+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ground:#0F191E;
-    --surface:#16242B;
-    --surface-2:#1B2E36;
-    --rule:#263D46;
-    --ink:#E9EFF1;
-    --muted:#8FA5AD;
-    --dim:#63797F;
-    --fam-a:#6FD3C0;
-    --fam-b:#E0A24B;
+    --ground:#0E1116;
+    --surface:#151A21;
+    --surface-2:#1B212B;
+    --line:#242C38;
+    --line-soft:#1E2530;
+    --ink:#E7ECF3;
+    --muted:#8B95A6;
+    --faint:#5A6473;
+    --fam-a:#5FC9BC;
+    --fam-b:#F2683C;
     --display:'Bricolage Grotesque',sans-serif;
-    --body:'Public Sans',sans-serif;
-    --mono:'IBM Plex Mono',monospace;
-    --gut:clamp(20px,5vw,64px);
+    --body:'Public Sans',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --gut:clamp(20px,5vw,56px);
+    --maxw:1120px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
     background:var(--ground);color:var(--ink);
     font-family:var(--body);font-weight:300;
-    font-size:17px;line-height:1.65;
-    -webkit-font-smoothing:antialiased;
+    font-size:17px;line-height:1.62;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
   }
-  a{color:inherit}
+  a{color:inherit;text-decoration:none}
   :focus-visible{outline:2px solid var(--fam-a);outline-offset:3px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
 
-  .wrap{max-width:1180px;margin:0 auto;padding:0 var(--gut)}
-  .eyebrow{
-    font-family:var(--mono);font-size:11px;letter-spacing:.18em;
-    text-transform:uppercase;color:var(--dim);
-  }
+  /* masthead */
+  .mast{position:sticky;top:0;z-index:50;background:rgba(14,17,22,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:58px;gap:16px}
+  .brand{font-family:var(--mono);font-size:13.5px;letter-spacing:.02em;display:flex;align-items:center;gap:8px}
+  .brand b{font-weight:500;color:var(--ink)}
+  .brand .sep{color:var(--fam-b)}
+  .brand .sub{color:var(--faint)}
+  .status{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+  .sdot{width:7px;height:7px;border-radius:50%;background:var(--fam-a);animation:pulse 2.6s ease-out infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(95,201,188,.5)}70%{box-shadow:0 0 0 7px rgba(95,201,188,0)}100%{box-shadow:0 0 0 0 rgba(95,201,188,0)}}
+  .status .clock{color:var(--faint)}
+  @media(max-width:640px){.status .label{display:none}}
 
-  /* ---------- masthead ---------- */
-  .mast{
-    border-bottom:1px solid var(--rule);
-    position:sticky;top:0;z-index:50;
-    background:rgba(15,25,30,.86);backdrop-filter:blur(10px);
+  /* hero */
+  .hero{position:relative;padding:clamp(56px,9vw,104px) 0 clamp(40px,6vw,72px);overflow:hidden}
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+    background-size:56px 56px;
+    -webkit-mask-image:radial-gradient(ellipse 80% 70% at 28% 0%,#000 0%,transparent 72%);
+    mask-image:radial-gradient(ellipse 80% 70% at 28% 0%,#000 0%,transparent 72%);
+    opacity:.45;pointer-events:none;
   }
-  .mast .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:18px}
-  .mark{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase}
-  .mark b{font-weight:500;color:var(--ink)}
-  .mark span{color:var(--dim)}
-  .mast nav{display:flex;gap:26px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-  .mast nav a{text-decoration:none}
-  .mast nav a:hover{color:var(--fam-a)}
-  @media(max-width:820px){.mast nav{display:none}}
-
-  /* ---------- hero ---------- */
-  .hero{padding:clamp(56px,10vw,120px) 0 clamp(40px,6vw,72px)}
-  .thesis{
-    font-family:var(--display);font-weight:800;
-    font-size:clamp(42px,8.2vw,92px);line-height:.94;
-    letter-spacing:-.035em;margin:22px 0 0;max-width:15ch;
-  }
+  .hero .wrap{position:relative}
+  .thesis{font-family:var(--display);font-weight:800;font-size:clamp(40px,7.6vw,86px);line-height:.95;letter-spacing:-.035em;margin:20px 0 0;max-width:15ch}
   .thesis em{font-style:normal;color:var(--fam-b)}
-  .lede{
-    max-width:60ch;margin-top:26px;font-size:clamp(17px,1.5vw,20px);
-    color:var(--muted);line-height:1.6;
-  }
-  .lede strong{color:var(--ink);font-weight:500}
+  .lede{max-width:60ch;margin-top:24px;font-size:clamp(16px,1.6vw,19.5px);color:var(--muted)}
+  .lede b{color:var(--ink);font-weight:500}
+  .cta-row{display:flex;flex-wrap:wrap;gap:11px;margin-top:30px}
+  .btn{font-family:var(--mono);font-size:12.5px;letter-spacing:.03em;padding:12px 19px;border-radius:9px;border:1px solid var(--line);transition:border-color .18s,background .18s,transform .18s;display:inline-flex;align-items:center;gap:8px}
+  .btn.primary{background:var(--fam-b);color:#180A04;border-color:var(--fam-b);font-weight:500}
+  .btn.primary:hover{transform:translateY(-1px);background:#ff7a4e}
+  .btn:not(.primary):hover{border-color:var(--fam-b);color:#fff}
+  .btn .arr{color:var(--fam-b)} .btn.primary .arr{color:#180A04}
 
   .fade{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
   .fade.in{opacity:1;transform:none}
 
-  /* ---------- signature: review ledger ---------- */
-  .ledger{
-    margin-top:clamp(40px,6vw,64px);
-    border:1px solid var(--rule);background:var(--surface);
-  }
-  .ledger-head{
-    display:flex;justify-content:space-between;align-items:center;
-    gap:12px;padding:12px 18px;border-bottom:1px solid var(--rule);
-    flex-wrap:wrap;
-  }
-  .ledger-head .t{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+  /* signature: review ledger */
+  .ledger{margin-top:clamp(38px,6vw,60px);border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+  .lhead{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line-soft);flex-wrap:wrap}
+  .lhead .t{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
   .ticks{display:flex;gap:7px}
-  .tick{width:26px;height:2px;background:var(--rule);border:0;padding:0;cursor:pointer}
+  .tick{width:26px;height:2px;background:var(--line);border:0;padding:0;cursor:pointer}
   .tick[aria-selected="true"]{background:var(--fam-a)}
-
-  .decision{padding:20px 18px;border-bottom:1px solid var(--rule)}
-  .decision .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
-  .decision p{margin-top:7px;font-size:clamp(18px,2vw,23px);font-weight:400;line-height:1.35;letter-spacing:-.01em}
-
+  .decision{padding:20px 18px;border-bottom:1px solid var(--line-soft)}
+  .decision .lbl,.finding .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .decision p{margin-top:7px;font-size:clamp(17px,1.9vw,22px);font-weight:400;line-height:1.35;letter-spacing:-.01em}
   .reviews{display:grid;grid-template-columns:1fr 1fr}
-  @media(max-width:700px){.reviews{grid-template-columns:1fr}}
-  .rev{padding:18px;border-right:1px solid var(--rule)}
+  .rev{padding:18px;border-right:1px solid var(--line-soft)}
   .reviews .rev:last-child{border-right:0}
   @media(max-width:700px){
-    .rev{border-right:0;border-bottom:1px solid var(--rule)}
+    .reviews{grid-template-columns:1fr}
+    .rev{border-right:0;border-bottom:1px solid var(--line-soft)}
     .reviews .rev:last-child{border-bottom:0}
   }
-  .rev .who{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase}
-  .dot{width:7px;height:7px;border-radius:50%}
-  .rev.a .who{color:var(--fam-a)} .rev.a .dot{background:var(--fam-a)}
-  .rev.b .who{color:var(--fam-b)} .rev.b .dot{background:var(--fam-b)}
-  .rev p{margin-top:10px;color:var(--muted);font-size:15.5px;line-height:1.55}
+  .rev .who{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+  .rdot{width:7px;height:7px;border-radius:50%}
+  .rev.a .who{color:var(--fam-a)} .rev.a .rdot{background:var(--fam-a)}
+  .rev.b .who{color:var(--fam-b)} .rev.b .rdot{background:var(--fam-b)}
+  .rev p{margin-top:10px;color:var(--muted);font-size:15px;line-height:1.55}
+  .finding{padding:16px 18px;background:var(--surface-2);display:flex;gap:13px;align-items:flex-start}
+  .finding .arrow{font-family:var(--mono);color:var(--faint);font-size:13px;padding-top:2px}
+  .finding p{margin-top:6px;font-size:15px;color:var(--ink);line-height:1.55}
+  .swap{animation:swapIn .45s ease}
+  @keyframes swapIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-  .finding{
-    padding:16px 18px;background:var(--surface-2);
-    border-top:1px solid var(--rule);
-    display:flex;gap:14px;align-items:flex-start;
-  }
-  .finding .arrow{font-family:var(--mono);color:var(--dim);font-size:13px;padding-top:2px}
-  .finding .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
-  .finding p{margin-top:6px;font-size:15.5px;color:var(--ink);line-height:1.55}
-  .swap{animation:swap .45s ease}
-  @keyframes swap{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  /* sections */
+  section{padding:clamp(54px,7.5vw,92px) 0;border-top:1px solid var(--line-soft)}
+  .shead{display:flex;align-items:baseline;gap:14px;margin-bottom:36px}
+  .shead .idx{color:var(--fam-b);font-family:var(--mono);font-size:12.5px}
+  .shead h2{font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+  .shead .rule{flex:1;height:1px;background:var(--line-soft);transform:translateY(-3px)}
+  .snote{color:var(--faint);font-size:15px;max-width:60ch;margin:-18px 0 34px}
 
-  /* ---------- generic section ---------- */
-  section{padding:clamp(56px,8vw,104px) 0;border-top:1px solid var(--rule)}
-  .shead{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:38px}
-  .shead h2{
-    font-family:var(--display);font-weight:600;
-    font-size:clamp(26px,3.4vw,38px);letter-spacing:-.02em;line-height:1.1;
-  }
-  .shead .note{color:var(--dim);font-size:14.5px;max-width:44ch}
-
-  /* practice */
-  .practice{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
-  .pr{background:var(--ground);padding:26px 24px}
-  .pr h3{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.01em;line-height:1.25}
-  .pr p{margin-top:10px;color:var(--muted);font-size:15px;line-height:1.6}
+  /* practice grid */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:10px;overflow:hidden}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .cell{background:var(--surface);padding:28px 26px;transition:background .2s}
+  .cell:hover{background:var(--surface-2)}
+  .cell .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--fam-a);text-transform:uppercase}
+  .cell h3{font-family:var(--display);font-size:19px;font-weight:600;margin:11px 0 8px;letter-spacing:-.012em;line-height:1.25}
+  .cell p{color:var(--muted);font-size:15px}
 
   /* deliverables */
-  .delivs{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
-  .chip{
-    font-family:var(--mono);font-size:12px;letter-spacing:.04em;
-    border:1px solid var(--rule);padding:8px 13px;color:var(--muted);
-  }
-  .versus{margin-top:30px;color:var(--dim);font-size:15px;max-width:56ch}
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;border:1px solid var(--line);border-radius:7px;padding:8px 13px;color:var(--muted)}
+  .after{margin-top:28px;color:var(--faint);font-size:15px;max-width:60ch}
+
+  /* build */
+  .item{display:grid;grid-template-columns:170px 1fr;gap:26px;padding:24px 0;border-top:1px solid var(--line-soft);align-items:start}
+  .item:first-of-type{border-top:0;padding-top:0}
+  @media(max-width:760px){.item{grid-template-columns:1fr;gap:10px}}
+  .item .name{font-family:var(--display);font-size:19px;font-weight:600;letter-spacing:-.012em}
+  .item .badge{display:inline-block;margin-top:8px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:3px 8px}
+  .item p{color:var(--muted);font-size:15px;max-width:64ch}
+  .item p .hl{color:var(--ink)}
+  .item a{color:var(--fam-a);border-bottom:1px solid transparent}
+  .item a:hover{border-bottom-color:var(--fam-a)}
 
   /* record */
-  .record{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:34px 28px}
-  .fig{border-top:2px solid var(--fam-b);padding-top:14px}
-  .fig .n{font-family:var(--display);font-weight:600;font-size:clamp(30px,4vw,42px);letter-spacing:-.03em;line-height:1}
+  .record{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:32px 26px}
+  .fig{border-top:2px solid var(--fam-b);padding-top:13px}
+  .fig .n{font-family:var(--display);font-weight:600;font-size:clamp(28px,3.8vw,40px);letter-spacing:-.03em;line-height:1}
   .fig .d{margin-top:8px;color:var(--muted);font-size:14.5px;line-height:1.5}
 
+  /* leadership */
+  .leads{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:10px;overflow:hidden}
+  @media(max-width:760px){.leads{grid-template-columns:1fr}}
+  .lead{background:var(--surface);padding:28px 26px}
+  .lead .role{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fam-a)}
+  .lead .who{font-family:var(--display);font-size:22px;font-weight:600;letter-spacing:-.015em;margin:11px 0 3px}
+  .lead .title{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.02em}
+  .lead p{color:var(--muted);font-size:15px;margin-top:14px}
+
   /* engage */
-  .cols{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(28px,5vw,64px)}
-  @media(max-width:820px){.cols{grid-template-columns:1fr}}
+  .cols{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(26px,5vw,56px)}
+  @media(max-width:860px){.cols{grid-template-columns:1fr}}
   .list{list-style:none}
-  .list li{padding:15px 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline}
-  .list li:first-child{border-top:1px solid var(--rule)}
-  .list .k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fam-a)}
-  .list .v{color:var(--muted);font-size:15.5px}
-  .terms{background:var(--surface);border:1px solid var(--rule);padding:24px}
-  .terms h3{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:500}
-  .terms ul{list-style:none;margin-top:16px}
-  .terms li{padding:12px 0;border-bottom:1px solid var(--rule);color:var(--muted);font-size:15px;line-height:1.55}
+  .list li{padding:15px 0;border-bottom:1px solid var(--line-soft);display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline}
+  .list li:first-child{border-top:1px solid var(--line-soft)}
+  .list .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fam-a)}
+  .list .v{color:var(--muted);font-size:15px}
+  .terms{background:var(--surface);border:1px solid var(--line-soft);border-radius:10px;padding:24px}
+  .terms h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:500}
+  .terms ul{list-style:none;margin-top:15px}
+  .terms li{padding:12px 0;border-bottom:1px solid var(--line-soft);color:var(--muted);font-size:14.5px;line-height:1.55}
   .terms li:last-child{border-bottom:0}
 
-  /* products */
-  .prods{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:26px}
-  .prod{border-left:2px solid var(--fam-a);padding-left:18px}
-  .prod h3{font-family:var(--mono);font-size:14px;letter-spacing:.02em;font-weight:500}
-  .prod p{margin-top:9px;color:var(--muted);font-size:15px;line-height:1.6}
-  .prod a{color:var(--fam-a);text-decoration:none;border-bottom:1px solid transparent}
-  .prod a:hover{border-bottom-color:var(--fam-a)}
-
   /* contact */
-  .contact{border-top:1px solid var(--rule);padding:clamp(56px,8vw,96px) 0 46px}
-  .cta{
-    font-family:var(--display);font-weight:600;
-    font-size:clamp(28px,4.6vw,52px);letter-spacing:-.03em;line-height:1.06;max-width:19ch;
-  }
-  .lines{margin-top:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px}
-  .lines div .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
-  .lines div p{margin-top:7px;font-size:16px}
-  .lines a{text-decoration:none;border-bottom:1px solid var(--rule)}
-  .lines a:hover{border-bottom-color:var(--fam-a);color:var(--fam-a)}
-  footer{border-top:1px solid var(--rule);padding:22px 0 40px;color:var(--dim);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
-  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .contact{border-top:1px solid var(--line-soft);padding:clamp(54px,7.5vw,92px) 0 42px}
+  .cta{font-family:var(--display);font-weight:600;font-size:clamp(27px,4.4vw,50px);letter-spacing:-.03em;line-height:1.06;max-width:20ch}
+  .cta em{font-style:normal;color:var(--fam-b)}
+  .csub{color:var(--muted);margin-top:16px;max-width:54ch;font-size:16.5px}
+  .entity{margin-top:28px;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--faint);border-left:2px solid var(--fam-b);padding-left:12px;line-height:1.7}
+  footer{padding:26px 0 44px}
+  .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--faint);border-top:1px solid var(--line-soft);padding-top:22px}
 
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
@@ -191,60 +187,62 @@
 <body>
 
 <header class="mast">
-  <div class="wrap">
-    <div class="mark"><b>Lanier Developments</b> <span>&nbsp;/ LLC</span></div>
-    <nav>
-      <a href="#practice">Practice</a>
-      <a href="#record">Record</a>
-      <a href="#engage">Engage</a>
-      <a href="#contact">Contact</a>
-    </nav>
+  <div class="wrap bar">
+    <div class="brand"><b>LANIER</b><span class="sep">//</span><span class="sub">DEVELOPMENTS</span></div>
+    <div class="status">
+      <span class="sdot" aria-hidden="true"></span>
+      <span class="label">AVAILABLE FOR ENGAGEMENTS</span>
+      <span class="clock" id="clock" aria-hidden="true"></span>
+    </div>
   </div>
 </header>
 
 <main>
 
-<div class="hero wrap">
-  <p class="eyebrow fade">AI Engineering Consultancy &nbsp;·&nbsp; Columbus, Ohio &nbsp;·&nbsp; Remote-first</p>
-  <h1 class="thesis fade">Agreement is not <em>verification</em>.</h1>
-  <p class="lede fade">
-    We build production agentic systems for regulated enterprises. Every architecture
-    decision is reviewed across <strong>two independent model families</strong> before it ships —
-    and when they agree too quickly, we look harder. The disagreement is where the
-    engineering happens.
-  </p>
-
-  <div class="ledger fade" aria-label="Review ledger examples">
-    <div class="ledger-head">
-      <span class="t">Review ledger — sample decisions</span>
-      <div class="ticks" role="tablist" aria-label="Choose a sample decision">
-        <button class="tick" role="tab" aria-selected="true" aria-label="Decision one"></button>
-        <button class="tick" role="tab" aria-selected="false" aria-label="Decision two"></button>
-        <button class="tick" role="tab" aria-selected="false" aria-label="Decision three"></button>
-      </div>
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow fade">AI Engineering Consultancy &nbsp;·&nbsp; Grove City, Ohio &nbsp;·&nbsp; Remote-first, nationwide</p>
+    <h1 class="thesis fade">Agreement is not <em>verification</em>.</h1>
+    <p class="lede fade">
+      We build production agentic systems for regulated enterprises. Every architecture decision is
+      reviewed across <b>two independent model families</b> before it ships — and when they agree too
+      quickly, we look harder. The disagreement is where the engineering happens.
+    </p>
+    <div class="cta-row fade">
+      <a class="btn primary" href="mailto:contact@lanierdevelopments.dev">Start a conversation <span class="arr">→</span></a>
+      <a class="btn" href="https://github.com/Lanier-Developments" target="_blank" rel="noopener">GitHub <span class="arr">↗</span></a>
+      <a class="btn" href="https://synthesize-ai.dev" target="_blank" rel="noopener">synthesize-ai <span class="arr">↗</span></a>
     </div>
 
-    <div class="decision">
-      <span class="lbl">Decision under review</span>
-      <p id="dec">Use a document store as the system of record for agent workflow state.</p>
-    </div>
-
-    <div class="reviews">
-      <div class="rev a">
-        <div class="who"><span class="dot"></span> Model family A</div>
-        <p id="ra">Approved. The document model fits variable manifest shapes and keeps a single write path.</p>
+    <div class="ledger fade" aria-label="Review ledger — sample decisions">
+      <div class="lhead">
+        <span class="t">Review ledger — sample decisions</span>
+        <div class="ticks" role="tablist" aria-label="Choose a sample decision">
+          <button class="tick" role="tab" aria-selected="true" aria-label="Decision one"></button>
+          <button class="tick" role="tab" aria-selected="false" aria-label="Decision two"></button>
+          <button class="tick" role="tab" aria-selected="false" aria-label="Decision three"></button>
+        </div>
       </div>
-      <div class="rev b">
-        <div class="who"><span class="dot"></span> Model family B</div>
-        <p id="rb">Approved — but no evidence layer is specified. Nothing proves step 7 actually ran.</p>
+      <div class="decision">
+        <span class="lbl">Decision under review</span>
+        <p id="dec">Use a document store as the system of record for agent workflow state.</p>
       </div>
-    </div>
-
-    <div class="finding">
-      <span class="arrow">&#8627;</span>
-      <div>
-        <span class="lbl">Divergence → change made before build</span>
-        <p id="fi">Added per-step attestation and a signing model, so every agent action leaves a verifiable record.</p>
+      <div class="reviews">
+        <div class="rev a">
+          <div class="who"><span class="rdot"></span> Model family A</div>
+          <p id="ra">Approved. The document model fits variable manifest shapes and keeps a single write path.</p>
+        </div>
+        <div class="rev b">
+          <div class="who"><span class="rdot"></span> Model family B</div>
+          <p id="rb">Approved — but no evidence layer is specified. Nothing proves step 7 actually ran.</p>
+        </div>
+      </div>
+      <div class="finding">
+        <span class="arrow">&#8627;</span>
+        <div>
+          <span class="lbl">Divergence → change made before build</span>
+          <p id="fi">Added per-step attestation and a signing model, so every agent action leaves a verifiable record.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -252,34 +250,38 @@
 
 <section id="practice">
   <div class="wrap">
-    <div class="shead fade">
-      <h2>What we practice</h2>
-      <p class="note">Current-generation AI implementation, carried on four decades of enterprise platform and release engineering.</p>
-    </div>
-    <div class="practice fade">
-      <div class="pr">
-        <h3>Agentic AI &amp; multi-agent orchestration</h3>
+    <div class="shead fade"><span class="idx">01</span><h2>What we practice</h2><span class="rule"></span></div>
+    <p class="snote fade">Current-generation AI implementation, carried on hard-won enterprise platform and release engineering.</p>
+    <div class="grid fade">
+      <div class="cell">
+        <span class="tag">Agentic systems</span>
+        <h3>Multi-agent orchestration</h3>
         <p>Named agents with defined roles, handoffs, and evidence trails. Workflow decomposition, manifest schemas, per-step attestation — and the question most agent demos skip: what is the system of record, and what proves the work happened.</p>
       </div>
-      <div class="pr">
-        <h3>AI platform governance &amp; policy control</h3>
-        <p>Multi-LLM policy control plane work: routing, approved-model enforcement, usage governance, and audit posture across vendors. A buildable alternative to commercial AI governance tooling for teams that need control without lock-in.</p>
+      <div class="cell">
+        <span class="tag">Governance</span>
+        <h3>AI policy control planes</h3>
+        <p>Multi-LLM routing, approved-model enforcement, usage governance, and audit posture across vendors. A buildable alternative to commercial AI governance tooling for teams that need control without lock-in.</p>
       </div>
-      <div class="pr">
-        <h3>RAG &amp; enterprise knowledge systems</h3>
-        <p>Retrieval architecture over document management systems and operational data stores. Our principal built a question-answering system over an enterprise documentation corpus in 2014 — a decade before the pattern had a name — and has carried the problem forward through current RAG and MCP tooling.</p>
+      <div class="cell">
+        <span class="tag">Retrieval</span>
+        <h3>RAG &amp; enterprise knowledge</h3>
+        <p>Retrieval architecture over document management systems and operational data stores — grounding, evaluation, and the pipelines that keep an answer traceable back to its source.</p>
       </div>
-      <div class="pr">
+      <div class="cell">
+        <span class="tag">Platform</span>
         <h3>DevSecOps &amp; release engineering</h3>
-        <p>Deployment automation and release orchestration at enterprise scale: custom plugin development, high-availability re-architecture, source-platform administration at extreme scale, container supply-chain security, Kubernetes, and observability.</p>
+        <p>Deployment automation and release orchestration at scale: custom plugin development, high-availability re-architecture, source-platform administration, container supply-chain security, Kubernetes, and observability.</p>
       </div>
-      <div class="pr">
-        <h3>AI-assisted QA &amp; test engineering</h3>
+      <div class="cell">
+        <span class="tag">Quality</span>
+        <h3>AI-assisted test engineering</h3>
         <p>Automated test generation, self-healing execution, and CI integration — productized in our own platform, and available as an engagement for teams who want the practice installed rather than the product bought.</p>
       </div>
-      <div class="pr">
-        <h3>Technical enablement &amp; AI adoption</h3>
-        <p>Curriculum design and delivery for engineering organizations adopting AI-assisted development. Grounded in formal instructional-design credentials, enterprise training delivery, and two published books on AI-assisted engineering workflow.</p>
+      <div class="cell">
+        <span class="tag">Adoption</span>
+        <h3>Technical enablement</h3>
+        <p>Curriculum design and delivery for engineering organizations moving to AI-assisted development. Grounded in formal instructional-design credentials and two published books on AI-assisted engineering workflow.</p>
       </div>
     </div>
   </div>
@@ -287,11 +289,9 @@
 
 <section id="deliver">
   <div class="wrap">
-    <div class="shead fade">
-      <h2>Decision records, not slideware</h2>
-      <p class="note">What a client actually receives at the end of an engagement.</p>
-    </div>
-    <div class="delivs fade">
+    <div class="shead fade"><span class="idx">02</span><h2>Decision records, not slideware</h2><span class="rule"></span></div>
+    <p class="snote fade">What a client actually receives when an engagement ends.</p>
+    <div class="chips fade">
       <span class="chip">Architecture decision records</span>
       <span class="chip">JSON Schemas</span>
       <span class="chip">Fixture data sets</span>
@@ -300,45 +300,73 @@
       <span class="chip">Points-and-cost build estimates</span>
       <span class="chip">Verified remediation briefs</span>
     </div>
-    <p class="versus fade">Every engagement is scoped in writing before work begins, with a point estimate a client can budget against. Small teams, senior only. The principal stays engaged through delivery rather than handing off after the sale.</p>
+    <p class="after fade">Every engagement is scoped in writing before work begins, with a point estimate a client can budget against. Small teams, senior only. No junior markup, and no handoff between the people who scope the work and the people who build it.</p>
+  </div>
+</section>
+
+<section id="built">
+  <div class="wrap">
+    <div class="shead fade"><span class="idx">03</span><h2>What we've built</h2><span class="rule"></span></div>
+    <p class="snote fade">Our practices are tested against our own production systems before they reach a client's.</p>
+
+    <div class="item fade">
+      <div><div class="name">synthesize-ai</div><span class="badge">SAAS · OPEN-CORE</span></div>
+      <p>Generates executable test suites from plain-English descriptions across six frameworks — <span class="hl">Playwright, Cypress, Selenium, Robot Framework, pytest, and Cucumber</span> — with LLM-backed self-healing tests, a token-reduction layer that holds cost near a cent per run, and automated SOC 2 / HIPAA compliance mapping. Public CLI on PyPI; Studio and Satellite backend on self-hosted infrastructure. <a href="https://synthesize-ai.dev" target="_blank" rel="noopener">synthesize-ai.dev ↗</a></p>
+    </div>
+
+    <div class="item fade">
+      <div><div class="name">AI Marketplace</div><span class="badge">OSS · CLI</span></div>
+      <p>A unified catalog and registry for open-source AI/ML packages, with a multi-platform CLI that abstracts <span class="hl">pip, Homebrew, and other installers</span> behind one command — and lets multi-registry publishers enforce a preferred install vector.</p>
+    </div>
+
+    <div class="item fade">
+      <div><div class="name">Open-source portfolio</div><span class="badge">PUBLIC</span></div>
+      <p><span class="hl">prompt-optimizer, multi-agent-cli, pytest-agents, and mcp-local-filesystem</span> — maintained with the same security discipline applied to client work, including formal vulnerability briefs and verified remediation. <a href="https://github.com/Lanier-Developments" target="_blank" rel="noopener">github.com/Lanier-Developments ↗</a></p>
+    </div>
+
+    <div class="item fade">
+      <div><div class="name">The Forge</div><span class="badge">BARE-METAL · K3S</span></div>
+      <p>A production-mode k3s cluster running a full DevSecOps pipeline: <span class="hl">Gitea for source and CI, Harbor with automated Trivy scanning, and Prometheus telemetry</span>. Production discipline, run in-house — because the best way to keep the edge sharp is to use it daily.</p>
+    </div>
+
+    <div class="item fade">
+      <div><div class="name">Published work</div><span class="badge">TWO TITLES</span></div>
+      <p><span class="hl">Behind the Steel Door: A Workflow for AI</span> documents the multi-model review methodology this firm runs on. <span class="hl">AI-Augmented Engineering Leadership</span> covers leading and scaling AI-assisted engineering teams.</p>
+    </div>
   </div>
 </section>
 
 <section id="record">
   <div class="wrap">
-    <div class="shead fade">
-      <h2>The record behind the firm</h2>
-      <p class="note">Principal's prior enterprise engineering record, Fortune 5 healthcare and telecom — the experience the firm's practice is built on.</p>
-    </div>
+    <div class="shead fade"><span class="idx">04</span><h2>Enterprise track record</h2><span class="rule"></span></div>
+    <p class="snote fade">Delivered in prior enterprise engagements across Fortune 5 healthcare and telecommunications.</p>
     <div class="record fade">
       <div class="fig"><div class="n">900,000+</div><div class="d">Repositories migrated between GitHub Enterprise Server and Cloud with issue-triggered automation</div></div>
       <div class="fig"><div class="n">99.9%</div><div class="d">Release platform availability sustained over five-plus years, across 20,000+ deployments per month</div></div>
-      <div class="fig"><div class="n">210</div><div class="d">Hospitals and clinics served by the enterprise revenue-cycle platform architected by our principal</div></div>
-      <div class="fig"><div class="n">10,000+</div><div class="d">Engineers supported on the enterprise source platform he administered</div></div>
+      <div class="fig"><div class="n">210</div><div class="d">Hospitals and clinics served by the enterprise revenue-cycle platform we architected</div></div>
+      <div class="fig"><div class="n">10,000+</div><div class="d">Engineers supported on the enterprise source platform we administered</div></div>
       <div class="fig"><div class="n">2014</div><div class="d">First enterprise retrieval-based question-answering system built — before RAG had a name</div></div>
-      <div class="fig"><div class="n">40 yrs</div><div class="d">In technology, from Bell Labs network provisioning to production agentic AI</div></div>
+      <div class="fig"><div class="n">SOC 2 · HIPAA · GovCloud</div><div class="d">Regulated environments where compliance was a build parameter, not a review step</div></div>
     </div>
   </div>
 </section>
 
-<section id="products">
+<section id="leadership">
   <div class="wrap">
-    <div class="shead fade">
-      <h2>We ship our own product</h2>
-      <p class="note">Our practices are tested against our own production systems before they reach a client's.</p>
-    </div>
-    <div class="prods fade">
-      <div class="prod">
-        <h3>synthesize-ai</h3>
-        <p>Open-core AI test-automation platform. Public CLI on PyPI, proprietary Studio and Satellite backend on self-hosted infrastructure. Live with external users and an active release cadence. <a href="https://synthesize-ai.dev">synthesize-ai.dev</a></p>
+    <div class="shead fade"><span class="idx">05</span><h2>Leadership</h2><span class="rule"></span></div>
+    <p class="snote fade">A small, senior firm. The people who scope the work are the people who deliver it.</p>
+    <div class="leads fade">
+      <div class="lead">
+        <span class="role">Engineering</span>
+        <div class="who">Kevin “Mac” McAllorum</div>
+        <div class="title">Founder &amp; Principal AI Engineering Consultant</div>
+        <p>Sets architecture and technical direction on every engagement and stays on the work through delivery. Author of two books on AI-assisted engineering workflow, and the architect behind the firm's own production platform.</p>
       </div>
-      <div class="prod">
-        <h3>Open-source portfolio</h3>
-        <p>prompt-optimizer, multi-agent-cli, pytest-agents, and mcp-local-filesystem — maintained with the same security discipline applied to client work, including formal vulnerability briefs and verified remediation. <a href="https://github.com/Lanier-Developments">github.com/Lanier-Developments</a></p>
-      </div>
-      <div class="prod">
-        <h3>Published works</h3>
-        <p>Two books on AI-assisted engineering workflow, including <em>Behind the Steel Door: A Workflow for AI</em>, which documents the multi-model review methodology this firm runs on.</p>
+      <div class="lead">
+        <span class="role">Operations</span>
+        <div class="who">Leala Logsdon</div>
+        <div class="title">Chief Financial Officer</div>
+        <p>Owns contracts, engagement terms, and business operations — scope documents, statements of work, invoicing, and the commercial side of every client relationship.</p>
       </div>
     </div>
   </div>
@@ -346,16 +374,14 @@
 
 <section id="engage">
   <div class="wrap">
-    <div class="shead fade">
-      <h2>How we engage</h2>
-      <p class="note">Principal-led delivery, staffed from a standing bench of senior engineers. Bench profiles and references provided at proposal stage under NDA.</p>
-    </div>
+    <div class="shead fade"><span class="idx">06</span><h2>How we engage</h2><span class="rule"></span></div>
+    <p class="snote fade">Principal-led delivery, staffed from a standing bench of senior engineers. Bench profiles and references provided at proposal stage under NDA.</p>
     <div class="cols fade">
       <ul class="list">
         <li><span class="k">Fixed scope</span><span class="v">Sprint or milestone delivery with a scope document and point estimate agreed up front.</span></li>
         <li><span class="k">Time &amp; materials</span><span class="v">Corp-to-corp or W2, for teams that need senior capacity against evolving work.</span></li>
         <li><span class="k">Retainer</span><span class="v">Architecture and advisory access — design review, decision records, and technical direction.</span></li>
-        <li><span class="k">Enablement</span><span class="v">Curriculum, workshops, and adoption programs for engineering organizations moving to AI-assisted development.</span></li>
+        <li><span class="k">Enablement</span><span class="v">Curriculum, workshops, and adoption programs for organizations moving to AI-assisted development.</span></li>
       </ul>
       <div class="terms">
         <h3>Standing terms</h3>
@@ -363,7 +389,7 @@
           <li>Mutual NDA before scoped discovery.</li>
           <li>Prior-IP carve-out for firm-owned tooling and methods — clients know up front what is theirs and what is ours.</li>
           <li>Approved commercial AI tooling disclosed and agreed in writing before work begins.</li>
-          <li>No junior markup. No handoff between the people who scope the work and the people who build it.</li>
+          <li>The principal stays engaged through delivery rather than handing off after the sale.</li>
         </ul>
       </div>
     </div>
@@ -371,33 +397,24 @@
 </section>
 
 <div class="contact wrap" id="contact">
-  <h2 class="cta fade">Bring us a decision you're not sure about.</h2>
-  <div class="lines fade">
-    <div>
-      <span class="lbl">Email</span>
-      <p><a href="mailto:mac@lanierdevelopments.com">mac@lanierdevelopments.com</a></p>
-    </div>
-    <div>
-      <span class="lbl">Phone</span>
-      <p><a href="tel:+12202286302">220-228-6302</a></p>
-    </div>
-    <div>
-      <span class="lbl">Principal</span>
-      <p>Kevin “Mac” McAllorum<br><span style="color:var(--dim);font-size:14px">Founder &amp; Principal AI Engineering Consultant</span></p>
-    </div>
-    <div>
-      <span class="lbl">Based</span>
-      <p>Grove City, Ohio<br><span style="color:var(--dim);font-size:14px">Nationwide remote delivery</span></p>
-    </div>
+  <p class="eyebrow fade" style="margin-bottom:16px">Get in touch</p>
+  <h2 class="cta fade">Bring us a decision you're <em>not sure about</em>.</h2>
+  <p class="csub fade">Statements of work, architecture audits, fractional technical leadership, or a build that has to hold up in production. Contact the principal desk directly to structure the engagement.</p>
+  <div class="cta-row fade">
+    <a class="btn primary" href="mailto:contact@lanierdevelopments.dev">contact@lanierdevelopments.dev <span class="arr">→</span></a>
+    <a class="btn" href="https://www.linkedin.com/in/kmcallorum" target="_blank" rel="noopener">LinkedIn <span class="arr">↗</span></a>
+    <a class="btn" href="https://github.com/Lanier-Developments" target="_blank" rel="noopener">GitHub <span class="arr">↗</span></a>
   </div>
+  <p class="entity fade">Lanier Developments, LLC — an Ohio limited liability company.<br>Structured for corp-to-corp, W2, and fixed-scope engagements.<br>Kevin “Mac” McAllorum, Founder &amp; Principal &nbsp;·&nbsp; Leala Logsdon, Chief Financial Officer.</p>
 </div>
 
 </main>
 
 <footer>
-  <div class="wrap">
-    <span>Lanier Developments, LLC &nbsp;·&nbsp; Ohio Limited Liability Company</span>
-    <span>C2C &nbsp;·&nbsp; W2 &nbsp;·&nbsp; Fixed scope</span>
+  <div class="wrap foot">
+    <span>LANIER // DEVELOPMENTS LLC</span>
+    <span>GROVE CITY, OHIO · REMOTE-FIRST</span>
+    <span>© <span id="year"></span> Lanier Developments LLC</span>
   </div>
 </footer>
 
@@ -405,19 +422,15 @@
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* reveal */
   var els = document.querySelectorAll('.fade');
   if(reduce){ els.forEach(function(e){e.classList.add('in')}); }
   else if('IntersectionObserver' in window){
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
-        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
-      });
-    },{threshold:.12});
-    els.forEach(function(e,i){ setTimeout(function(){ io.observe(e); }, i<4? i*90 : 0); });
+    var io = new IntersectionObserver(function(en){
+      en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target); } });
+    },{threshold:.1});
+    els.forEach(function(e,i){ setTimeout(function(){ io.observe(e); }, i<5? i*80 : 0); });
   } else { els.forEach(function(e){e.classList.add('in')}); }
 
-  /* review ledger */
   var data = [
     { d:'Use a document store as the system of record for agent workflow state.',
       a:'Approved. The document model fits variable manifest shapes and keeps a single write path.',
@@ -432,22 +445,28 @@
       b:'That puts vendor lock-in at the policy layer, where it is most expensive to unwind.',
       f:'Built a provider-agnostic policy control plane instead — routing and approved-model enforcement stay ours.' }
   ];
-  var dec=document.getElementById('dec'), ra=document.getElementById('ra'),
-      rb=document.getElementById('rb'), fi=document.getElementById('fi'),
+  var dec=document.getElementById('dec'),ra=document.getElementById('ra'),
+      rb=document.getElementById('rb'),fi=document.getElementById('fi'),
       ticks=[].slice.call(document.querySelectorAll('.tick'));
-  var idx=0, timer=null;
-
-  function render(i,animate){
-    idx=i; var x=data[i];
-    [dec,ra,rb,fi].forEach(function(n){ if(animate&&!reduce){ n.classList.remove('swap'); void n.offsetWidth; n.classList.add('swap'); } });
-    dec.textContent=x.d; ra.textContent=x.a; rb.textContent=x.b; fi.textContent=x.f;
-    ticks.forEach(function(t,j){ t.setAttribute('aria-selected', j===i?'true':'false'); });
+  var idx=0,timer=null;
+  function render(i,anim){
+    idx=i;var x=data[i];
+    if(anim&&!reduce){[dec,ra,rb,fi].forEach(function(n){n.classList.remove('swap');void n.offsetWidth;n.classList.add('swap');});}
+    dec.textContent=x.d;ra.textContent=x.a;rb.textContent=x.b;fi.textContent=x.f;
+    ticks.forEach(function(t,j){t.setAttribute('aria-selected',j===i?'true':'false');});
   }
-  function cycle(){ render((idx+1)%data.length,true); }
-  ticks.forEach(function(t,j){
-    t.addEventListener('click',function(){ render(j,true); if(timer){clearInterval(timer); timer=null;} });
-  });
-  if(!reduce){ timer=setInterval(cycle,7000); }
+  ticks.forEach(function(t,j){t.addEventListener('click',function(){render(j,true);if(timer){clearInterval(timer);timer=null;}});});
+  if(!reduce){timer=setInterval(function(){render((idx+1)%data.length,true);},7000);}
+
+  var clock=document.getElementById('clock');
+  function tick(){
+    var n=new Date();
+    var t=n.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:false});
+    var z=(n.toLocaleTimeString('en-US',{timeZoneName:'short'}).split(' ').pop())||'';
+    clock.textContent=t+' '+z;
+  }
+  tick(); setInterval(tick,15000);
+  document.getElementById('year').textContent=new Date().getFullYear();
 })();
 </script>
 </body>
