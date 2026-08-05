@@ -1,571 +1,454 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Lanier Developments — Enterprise Systems Architecture</title>
-<meta name="description" content="Enterprise systems architecture, platform modernization, and advanced infrastructure orchestration since 1986. Production AI systems, multi-agent orchestration, and the DevOps backbone to run them by founder Kevin 'Mac' McAllorum." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lanier Developments — AI Engineering Consultancy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Public+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ground: #0E1116;
-    --surface: #151A21;
-    --surface-2: #1B212B;
-    --line: #242C38;
-    --line-soft: #1E2530;
-    --text: #E7ECF3;
-    --muted: #8B95A6;
-    --faint: #5A6473;
-    --ember: #F2683C;
-    --ember-dim: rgba(242, 104, 60, 0.14);
-    --maxw: 1080px;
-    --r: 10px;
+  :root{
+    --ground:#0F191E;
+    --surface:#16242B;
+    --surface-2:#1B2E36;
+    --rule:#263D46;
+    --ink:#E9EFF1;
+    --muted:#8FA5AD;
+    --dim:#63797F;
+    --fam-a:#6FD3C0;
+    --fam-b:#E0A24B;
+    --display:'Bricolage Grotesque',sans-serif;
+    --body:'Public Sans',sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+    --gut:clamp(20px,5vw,64px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ground);color:var(--ink);
+    font-family:var(--body);font-weight:300;
+    font-size:17px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--fam-a);outline-offset:3px}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 var(--gut)}
+  .eyebrow{
+    font-family:var(--mono);font-size:11px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--dim);
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* ---------- masthead ---------- */
+  .mast{
+    border-bottom:1px solid var(--rule);
+    position:sticky;top:0;z-index:50;
+    background:rgba(15,25,30,.86);backdrop-filter:blur(10px);
+  }
+  .mast .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:18px}
+  .mark{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+  .mark b{font-weight:500;color:var(--ink)}
+  .mark span{color:var(--dim)}
+  .mast nav{display:flex;gap:26px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .mast nav a{text-decoration:none}
+  .mast nav a:hover{color:var(--fam-a)}
+  @media(max-width:820px){.mast nav{display:none}}
 
-  html { scroll-behavior: smooth; }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
+  /* ---------- hero ---------- */
+  .hero{padding:clamp(56px,10vw,120px) 0 clamp(40px,6vw,72px)}
+  .thesis{
+    font-family:var(--display);font-weight:800;
+    font-size:clamp(42px,8.2vw,92px);line-height:.94;
+    letter-spacing:-.035em;margin:22px 0 0;max-width:15ch;
   }
+  .thesis em{font-style:normal;color:var(--fam-b)}
+  .lede{
+    max-width:60ch;margin-top:26px;font-size:clamp(17px,1.5vw,20px);
+    color:var(--muted);line-height:1.6;
+  }
+  .lede strong{color:var(--ink);font-weight:500}
 
-  body {
-    background: var(--ground);
-    color: var(--text);
-    font-family: 'IBM Plex Sans', system-ui, sans-serif;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
+  .fade{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+  .fade.in{opacity:1;transform:none}
 
-  .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+  /* ---------- signature: review ledger ---------- */
+  .ledger{
+    margin-top:clamp(40px,6vw,64px);
+    border:1px solid var(--rule);background:var(--surface);
+  }
+  .ledger-head{
+    display:flex;justify-content:space-between;align-items:center;
+    gap:12px;padding:12px 18px;border-bottom:1px solid var(--rule);
+    flex-wrap:wrap;
+  }
+  .ledger-head .t{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+  .ticks{display:flex;gap:7px}
+  .tick{width:26px;height:2px;background:var(--rule);border:0;padding:0;cursor:pointer}
+  .tick[aria-selected="true"]{background:var(--fam-a)}
 
-  a { color: inherit; text-decoration: none; }
+  .decision{padding:20px 18px;border-bottom:1px solid var(--rule)}
+  .decision .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+  .decision p{margin-top:7px;font-size:clamp(18px,2vw,23px);font-weight:400;line-height:1.35;letter-spacing:-.01em}
 
-  .wrap {
-    max-width: var(--maxw);
-    margin: 0 auto;
-    padding: 0 28px;
+  .reviews{display:grid;grid-template-columns:1fr 1fr}
+  @media(max-width:700px){.reviews{grid-template-columns:1fr}}
+  .rev{padding:18px;border-right:1px solid var(--rule)}
+  .reviews .rev:last-child{border-right:0}
+  @media(max-width:700px){
+    .rev{border-right:0;border-bottom:1px solid var(--rule)}
+    .reviews .rev:last-child{border-bottom:0}
   }
+  .rev .who{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase}
+  .dot{width:7px;height:7px;border-radius:50%}
+  .rev.a .who{color:var(--fam-a)} .rev.a .dot{background:var(--fam-a)}
+  .rev.b .who{color:var(--fam-b)} .rev.b .dot{background:var(--fam-b)}
+  .rev p{margin-top:10px;color:var(--muted);font-size:15.5px;line-height:1.55}
 
-  .eyebrow {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11.5px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--faint);
+  .finding{
+    padding:16px 18px;background:var(--surface-2);
+    border-top:1px solid var(--rule);
+    display:flex;gap:14px;align-items:flex-start;
   }
+  .finding .arrow{font-family:var(--mono);color:var(--dim);font-size:13px;padding-top:2px}
+  .finding .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+  .finding p{margin-top:6px;font-size:15.5px;color:var(--ink);line-height:1.55}
+  .swap{animation:swap .45s ease}
+  @keyframes swap{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-  /* ---------- TOP BAR ---------- */
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(14, 17, 22, 0.82);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line-soft);
+  /* ---------- generic section ---------- */
+  section{padding:clamp(56px,8vw,104px) 0;border-top:1px solid var(--rule)}
+  .shead{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:38px}
+  .shead h2{
+    font-family:var(--display);font-weight:600;
+    font-size:clamp(26px,3.4vw,38px);letter-spacing:-.02em;line-height:1.1;
   }
-  .bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 58px;
-  }
-  .brand {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    display: flex;
-    align-items: center;
-    gap: 9px;
-  }
-  .brand b { color: var(--text); font-weight: 600; }
-  .brand .sep { color: var(--ember); }
-  .brand .sub { color: var(--faint); }
-  .brand .est {
-    font-size: 10px;
-    color: var(--faint);
-    border: 1px solid var(--line);
-    padding: 1px 5px;
-    border-radius: 3px;
-    margin-left: 4px;
-    letter-spacing: 0.05em;
-  }
+  .shead .note{color:var(--dim);font-size:14.5px;max-width:44ch}
 
-  .status {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11.5px;
-    letter-spacing: 0.06em;
-    color: var(--muted);
-  }
-  .dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--ember);
-    box-shadow: 0 0 0 0 rgba(242,104,60,0.55);
-    animation: pulse 2.4s ease-out infinite;
-  }
-  @keyframes pulse {
-    0%   { box-shadow: 0 0 0 0 rgba(242,104,60,0.5); }
-    70%  { box-shadow: 0 0 0 7px rgba(242,104,60,0); }
-    100% { box-shadow: 0 0 0 0 rgba(242,104,60,0); }
-  }
-  @media (prefers-reduced-motion: reduce) { .dot { animation: none; } }
-  .status .clock { color: var(--faint); }
+  /* practice */
+  .practice{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+  .pr{background:var(--ground);padding:26px 24px}
+  .pr h3{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.01em;line-height:1.25}
+  .pr p{margin-top:10px;color:var(--muted);font-size:15px;line-height:1.6}
 
-  /* ---------- HERO ---------- */
-  .hero {
-    position: relative;
-    padding: 92px 0 78px;
-    border-bottom: 1px solid var(--line-soft);
-    overflow: hidden;
+  /* deliverables */
+  .delivs{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+  .chip{
+    font-family:var(--mono);font-size:12px;letter-spacing:.04em;
+    border:1px solid var(--rule);padding:8px 13px;color:var(--muted);
   }
-  .hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(var(--line-soft) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
-    background-size: 56px 56px;
-    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 30% 0%, #000 0%, transparent 75%);
-    mask-image: radial-gradient(ellipse 80% 70% at 30% 0%, #000 0%, transparent 75%);
-    opacity: 0.5;
-    pointer-events: none;
-  }
-  .hero .wrap { position: relative; }
+  .versus{margin-top:30px;color:var(--dim);font-size:15px;max-width:56ch}
 
-  .hero h1 {
-    font-size: clamp(33px, 5.6vw, 60px);
-    line-height: 1.04;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin: 20px 0 0;
-    max-width: 18ch;
-  }
-  .hero h1 .accent { color: var(--ember); }
+  /* record */
+  .record{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:34px 28px}
+  .fig{border-top:2px solid var(--fam-b);padding-top:14px}
+  .fig .n{font-family:var(--display);font-weight:600;font-size:clamp(30px,4vw,42px);letter-spacing:-.03em;line-height:1}
+  .fig .d{margin-top:8px;color:var(--muted);font-size:14.5px;line-height:1.5}
 
-  .lede {
-    margin-top: 22px;
-    font-size: clamp(16px, 1.7vw, 19px);
-    color: var(--muted);
-    max-width: 58ch;
-  }
-  .lede b { color: var(--text); font-weight: 600; }
+  /* engage */
+  .cols{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(28px,5vw,64px)}
+  @media(max-width:820px){.cols{grid-template-columns:1fr}}
+  .list{list-style:none}
+  .list li{padding:15px 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline}
+  .list li:first-child{border-top:1px solid var(--rule)}
+  .list .k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fam-a)}
+  .list .v{color:var(--muted);font-size:15.5px}
+  .terms{background:var(--surface);border:1px solid var(--rule);padding:24px}
+  .terms h3{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:500}
+  .terms ul{list-style:none;margin-top:16px}
+  .terms li{padding:12px 0;border-bottom:1px solid var(--rule);color:var(--muted);font-size:15px;line-height:1.55}
+  .terms li:last-child{border-bottom:0}
 
-  .cta-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 34px;
-  }
-  .btn {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px;
-    letter-spacing: 0.03em;
-    padding: 12px 20px;
-    border-radius: var(--r);
-    border: 1px solid var(--line);
-    transition: border-color .18s, background .18s, transform .18s;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .btn.primary {
-    background: var(--ember);
-    color: #170B05;
-    border-color: var(--ember);
-    font-weight: 600;
-  }
-  .btn.primary:hover { transform: translateY(-1px); background: #ff7647; }
-  .btn:not(.primary):hover { border-color: var(--ember); color: #fff; }
-  .btn .arr { color: var(--ember); }
-  .btn.primary .arr { color: #170B05; }
+  /* products */
+  .prods{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:26px}
+  .prod{border-left:2px solid var(--fam-a);padding-left:18px}
+  .prod h3{font-family:var(--mono);font-size:14px;letter-spacing:.02em;font-weight:500}
+  .prod p{margin-top:9px;color:var(--muted);font-size:15px;line-height:1.6}
+  .prod a{color:var(--fam-a);text-decoration:none;border-bottom:1px solid transparent}
+  .prod a:hover{border-bottom-color:var(--fam-a)}
 
-  /* hero reveal */
-  .reveal { opacity: 0; transform: translateY(14px); animation: rise .7s cubic-bezier(.2,.7,.3,1) forwards; }
-  .reveal.d1 { animation-delay: .05s; }
-  .reveal.d2 { animation-delay: .15s; }
-  .reveal.d3 { animation-delay: .25s; }
-  .reveal.d4 { animation-delay: .35s; }
-  @keyframes rise { to { opacity: 1; transform: none; } }
-  @media (prefers-reduced-motion: reduce) {
-    .reveal { animation: none; opacity: 1; transform: none; }
+  /* contact */
+  .contact{border-top:1px solid var(--rule);padding:clamp(56px,8vw,96px) 0 46px}
+  .cta{
+    font-family:var(--display);font-weight:600;
+    font-size:clamp(28px,4.6vw,52px);letter-spacing:-.03em;line-height:1.06;max-width:19ch;
   }
+  .lines{margin-top:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px}
+  .lines div .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+  .lines div p{margin-top:7px;font-size:16px}
+  .lines a{text-decoration:none;border-bottom:1px solid var(--rule)}
+  .lines a:hover{border-bottom-color:var(--fam-a);color:var(--fam-a)}
+  footer{border-top:1px solid var(--rule);padding:22px 0 40px;color:var(--dim);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
-  /* ---------- SECTION SHELL ---------- */
-  section { padding: 76px 0; border-bottom: 1px solid var(--line-soft); }
-  .sec-head {
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-    margin-bottom: 38px;
-  }
-  .sec-head h2 {
-    font-size: 13px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--text);
-  }
-  .sec-head .rule {
-    flex: 1;
-    height: 1px;
-    background: var(--line-soft);
-    transform: translateY(-3px);
-  }
-  .sec-head .idx { color: var(--ember); font-family: 'IBM Plex Mono', monospace; font-size: 13px; }
-
-  /* ---------- CAPABILITIES ---------- */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    background: var(--line-soft);
-    border: 1px solid var(--line-soft);
-    border-radius: var(--r);
-    overflow: hidden;
-  }
-  .cell {
-    background: var(--surface);
-    padding: 30px 28px;
-    transition: background .2s;
-  }
-  .cell:hover { background: var(--surface-2); }
-  .cell .tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    color: var(--ember);
-    text-transform: uppercase;
-  }
-  .cell h3 {
-    font-size: 19px;
-    font-weight: 600;
-    margin: 12px 0 9px;
-    letter-spacing: -0.01em;
-  }
-  .cell p { color: var(--muted); font-size: 15px; }
-
-  /* ---------- SELECTED WORK ---------- */
-  .work-item {
-    display: grid;
-    grid-template-columns: 150px 1fr;
-    gap: 28px;
-    padding: 26px 0;
-    border-top: 1px solid var(--line-soft);
-    align-items: start;
-  }
-  .work-item:first-of-type { border-top: none; padding-top: 0; }
-  .work-meta .name { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
-  .work-meta .badge {
-    display: inline-block;
-    margin-top: 8px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10.5px;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    border: 1px solid var(--line);
-    border-radius: 5px;
-    padding: 3px 8px;
-  }
-  .work-item p { color: var(--muted); font-size: 15px; max-width: 64ch; }
-  .work-item p .hl { color: var(--text); }
-
-  /* ---------- CAREER STRIP ---------- */
-  .career {
-    background: var(--surface);
-    border: 1px solid var(--line-soft);
-    border-radius: var(--r);
-    padding: 30px 30px;
-  }
-  .path {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: clamp(13px, 1.8vw, 16px);
-    color: var(--text);
-    letter-spacing: 0.01em;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 12px;
-  }
-  .path .arrow { color: var(--ember); }
-  .path .now { color: var(--ember); }
-  .career .note { color: var(--muted); margin-top: 14px; font-size: 15px; line-height: 1.6; }
-  
-  .case-summary {
-    margin-top: 24px;
-    border-top: 1px solid var(--line-soft);
-    padding-top: 20px;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  .case-point {
-    font-size: 14.5px;
-    color: var(--muted);
-  }
-  .case-point strong {
-    color: var(--text);
-    font-weight: 600;
-  }
-
-  .books {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-    margin-top: 24px;
-  }
-  .book {
-    border: 1px solid var(--line-soft);
-    border-radius: var(--r);
-    padding: 22px 22px;
-    background: var(--surface);
-  }
-  .book .kicker { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.14em; color:var(--faint); text-transform:uppercase; }
-  .book .title { font-weight:600; font-size:16px; margin:9px 0 6px; }
-  .book p { color: var(--muted); font-size: 14px; }
-
-  /* ---------- CONTACT ---------- */
-  .contact { text-align: left; }
-  .contact h2.big {
-    font-size: clamp(28px, 4.4vw, 44px);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.08;
-    max-width: 18ch;
-  }
-  .contact h2.big .accent { color: var(--ember); }
-  .contact .sub { color: var(--muted); margin-top: 16px; max-width: 52ch; font-size: 17px; }
-  .links {
-    margin-top: 30px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .entity {
-    margin-top: 28px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.04em;
-    color: var(--faint);
-    border-left: 2px solid var(--ember);
-    padding-left: 12px;
-  }
-
-  /* ---------- FOOTER ---------- */
-  footer {
-    padding: 30px 0 46px;
-    border-bottom: none;
-  }
-  .foot {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11.5px;
-    letter-spacing: 0.04em;
-    color: var(--faint);
-  }
-
-  /* ---------- RESPONSIVE ---------- */
-  @media (max-width: 720px) {
-    .grid { grid-template-columns: 1fr; }
-    .work-item { grid-template-columns: 1fr; gap: 12px; }
-    .books { grid-template-columns: 1fr; }
-    .status .label { display: none; }
-    .hero { padding: 64px 0 56px; }
-    section { padding: 58px 0; }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .fade{opacity:1;transform:none}
+    html{scroll-behavior:auto}
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="wrap bar">
-    <div class="brand">
-      <b>LANIER</b><span class="sep">//</span><span class="sub">DEVELOPMENTS</span><span class="est">EST. 1986</span>
-    </div>
-    <div class="status">
-      <span class="dot" aria-hidden="true"></span>
-      <span class="label">AVAILABLE FOR ENGAGEMENTS</span>
-      <span class="clock" id="clock" aria-hidden="true"></span>
-    </div>
+<header class="mast">
+  <div class="wrap">
+    <div class="mark"><b>Lanier Developments</b> <span>&nbsp;/ LLC</span></div>
+    <nav>
+      <a href="#practice">Practice</a>
+      <a href="#record">Record</a>
+      <a href="#engage">Engage</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </div>
 </header>
 
-<section class="hero">
-  <div class="wrap">
-    <p class="eyebrow reveal d1">Enterprise Systems Architecture — Cloud Engineering — Grove City, OH</p>
-    <h1 class="reveal d2">Production infrastructure, engineered to <span class="accent">institutional standard.</span></h1>
-    <p class="lede reveal d3">
-      I'm Kevin McAllorum — engineers call me Mac. Lanier Developments LLC brings four decades of 
-      high-availability systems architecture and engineering governance to heavy-stakes environments. We pair 
-      deep enterprise lineage with <b>hands-on, in-production agentic AI platforms</b>, automated cloud transformations, 
-      and the rigorous compliance frameworks required when uptime and structural boundaries are absolute parameters.
-    </p>
-    <div class="cta-row reveal d4">
-      <a class="btn primary" href="mailto:contact@lanierdevelopments.dev">Start a conversation <span class="arr">→</span></a>
-      <a class="btn" href="https://github.com/Lanier-Developments" target="_blank" rel="noopener">GitHub <span class="arr">↗</span></a>
-      <a class="btn" href="https://www.linkedin.com/in/kmcallorum" target="_blank" rel="noopener">LinkedIn <span class="arr">↗</span></a>
-    </div>
-  </div>
-</section>
+<main>
 
-<section id="work">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="idx">01</span>
-      <h2>What we do</h2>
-      <span class="rule"></span>
+<div class="hero wrap">
+  <p class="eyebrow fade">AI Engineering Consultancy &nbsp;·&nbsp; Columbus, Ohio &nbsp;·&nbsp; Remote-first</p>
+  <h1 class="thesis fade">Agreement is not <em>verification</em>.</h1>
+  <p class="lede fade">
+    We build production agentic systems for regulated enterprises. Every architecture
+    decision is reviewed across <strong>two independent model families</strong> before it ships —
+    and when they agree too quickly, we look harder. The disagreement is where the
+    engineering happens.
+  </p>
+
+  <div class="ledger fade" aria-label="Review ledger examples">
+    <div class="ledger-head">
+      <span class="t">Review ledger — sample decisions</span>
+      <div class="ticks" role="tablist" aria-label="Choose a sample decision">
+        <button class="tick" role="tab" aria-selected="true" aria-label="Decision one"></button>
+        <button class="tick" role="tab" aria-selected="false" aria-label="Decision two"></button>
+        <button class="tick" role="tab" aria-selected="false" aria-label="Decision three"></button>
+      </div>
     </div>
-    <div class="grid">
-      <div class="cell">
-        <span class="tag">AI Systems</span>
-        <h3>Multi-agent &amp; LLM engineering</h3>
-        <p>Multi-model pipelines, multi-agent orchestration, and Model Context Protocol (MCP) integrations — designed to run inside deterministic, secure enterprise bounds.</p>
+
+    <div class="decision">
+      <span class="lbl">Decision under review</span>
+      <p id="dec">Use a document store as the system of record for agent workflow state.</p>
+    </div>
+
+    <div class="reviews">
+      <div class="rev a">
+        <div class="who"><span class="dot"></span> Model family A</div>
+        <p id="ra">Approved. The document model fits variable manifest shapes and keeps a single write path.</p>
       </div>
-      <div class="cell">
-        <span class="tag">Transformation</span>
-        <h3>AI-augmented SDLC</h3>
-        <p>Codifying specialized human-in-the-loop workflows. We scale engineering output through structured developer enablement and strict context boundary governance.</p>
+      <div class="rev b">
+        <div class="who"><span class="dot"></span> Model family B</div>
+        <p id="rb">Approved — but no evidence layer is specified. Nothing proves step 7 actually ran.</p>
       </div>
-      <div class="cell">
-        <span class="tag">Platform</span>
-        <h3>Cloud-Native Architecture</h3>
-        <p>Hardened Kubernetes orchestration, immutable continuous deployment, and automated infrastructure lifecycle migrations sustained across massive consumer and public sector grids.</p>
-      </div>
-      <div class="cell">
-        <span class="tag">Compliance</span>
-        <h3>Automation &amp; Policy Planes</h3>
-        <p>Translating complex regulatory parameters (SOC2, HIPAA, GovCloud) into continuous, programmatic policy control planes that execute automatically within the delivery pipeline.</p>
+    </div>
+
+    <div class="finding">
+      <span class="arrow">&#8627;</span>
+      <div>
+        <span class="lbl">Divergence → change made before build</span>
+        <p id="fi">Added per-step attestation and a signing model, so every agent action leaves a verifiable record.</p>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<section id="proof">
+<section id="practice">
   <div class="wrap">
-    <div class="sec-head">
-      <span class="idx">02</span>
-      <h2>Proprietary R&amp;D Assets</h2>
-      <span class="rule"></span>
+    <div class="shead fade">
+      <h2>What we practice</h2>
+      <p class="note">Current-generation AI implementation, carried on four decades of enterprise platform and release engineering.</p>
     </div>
-
-    <div class="work-item">
-      <div class="work-meta">
-        <div class="name">AI-Synthesize</div>
-        <span class="badge">SAAS · OPEN-CORE</span>
+    <div class="practice fade">
+      <div class="pr">
+        <h3>Agentic AI &amp; multi-agent orchestration</h3>
+        <p>Named agents with defined roles, handoffs, and evidence trails. Workflow decomposition, manifest schemas, per-step attestation — and the question most agent demos skip: what is the system of record, and what proves the work happened.</p>
       </div>
-      <p>Generates fully executable test suites from plain-English descriptions across six frameworks — <span class="hl">Robot, Playwright, Cypress, Selenium, pytest, and Cucumber</span> — with LLM-backed self-healing tests, a token-reduction layer for cost control, and automated compliance mapping.</p>
-    </div>
-
-    <div class="work-item">
-      <div class="work-meta">
-        <div class="name">AI Marketplace</div>
-        <span class="badge">OSS · CLI</span>
+      <div class="pr">
+        <h3>AI platform governance &amp; policy control</h3>
+        <p>Multi-LLM policy control plane work: routing, approved-model enforcement, usage governance, and audit posture across vendors. A buildable alternative to commercial AI governance tooling for teams that need control without lock-in.</p>
       </div>
-      <p>A unified catalog and registry for open-source AI/ML packages, with a multi-platform CLI that abstracts <span class="hl">pip, Homebrew, and other installers</span> behind one command — and lets multi-registry publishers enforce preferred install vectors.</p>
-    </div>
-
-    <div class="work-item">
-      <div class="work-meta">
-        <div class="name">The Forge</div>
-        <span class="badge">HOME LAB · K3S</span>
+      <div class="pr">
+        <h3>RAG &amp; enterprise knowledge systems</h3>
+        <p>Retrieval architecture over document management systems and operational data stores. Our principal built a question-answering system over an enterprise documentation corpus in 2014 — a decade before the pattern had a name — and has carried the problem forward through current RAG and MCP tooling.</p>
       </div>
-      <p>A bare-metal k3s cluster running a full DevSecOps pipeline: <span class="hl">Gitea for source and CI, Harbor with Trivy scanning, and Prometheus telemetry</span>. Production discipline, run at home — because the best way to keep the edge sharp is to use it daily.</p>
-    </div>
-  </div>
-</section>
-
-<section id="track">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="idx">03</span>
-      <h2>Track record &amp; Lineage</h2>
-      <span class="rule"></span>
-    </div>
-    <div class="career">
-      <div class="path">
-        <span>AT&amp;T / Bell Labs</span><span class="arrow">→</span>
-        <span>Elite Systems Consulting</span><span class="arrow">→</span>
-        <span class="now">UnitedHealth Group / Optum</span>
+      <div class="pr">
+        <h3>DevSecOps &amp; release engineering</h3>
+        <p>Deployment automation and release orchestration at enterprise scale: custom plugin development, high-availability re-architecture, source-platform administration at extreme scale, container supply-chain security, Kubernetes, and observability.</p>
       </div>
-      <p class="note">Established in 1986, Lanier Developments LLC has engineered, modernised, and stabilized core digital infrastructure for the foundational pillars of global commerce, telecom, and healthcare finance.</p>
-      
-      <div class="case-summary">
-        <div class="case-point">
-          <strong>Automated Enterprise Migrations:</strong> Engineered a custom, highly parallelized IssueOps automation pipeline utilizing segmented GitHub Actions runner pools to migrate over 800,000 repositories and network identity engines from on-premises systems to the cloud with zero operational downtime.
-        </div>
-        <div class="case-point">
-          <strong>High-Ticket Architecture Consulting:</strong> Deployed high-availability solutions, secure online banking portals, and multi-level division analytics engines for major tier-1 institutions, including SunTrust, Coca-Cola Enterprises, and the Bank of New York.
-        </div>
-        <div class="case-point">
-          <strong>Infrastructure Modernization &amp; Governance:</strong> Directed the architectural evolution of flagship revenue cycle management systems, automated OpenShift-to-Kubernetes container migrations, and established isolated GovCloud policy control planes utilizing advanced <code class="mono" style="font-size: 13px; color: var(--ember);">AGENTS.md</code> methodologies.
-        </div>
+      <div class="pr">
+        <h3>AI-assisted QA &amp; test engineering</h3>
+        <p>Automated test generation, self-healing execution, and CI integration — productized in our own platform, and available as an engagement for teams who want the practice installed rather than the product bought.</p>
       </div>
-    </div>
-
-    <div class="books">
-      <div class="book">
-        <div class="kicker">Published Framework</div>
-        <div class="title">AI-Augmented Engineering Leadership</div>
-        <p>A strategic guide to leading, governing, and scaling autonomous, multi-agent development tracks within enterprise bounds.</p>
-      </div>
-      <div class="book">
-        <div class="kicker">Published Framework</div>
-        <div class="title">Behind the Steel Door</div>
-        <p>A practitioner's architectural account of designing, partitioning, and building a secure, multi-model AI development workflow.</p>
+      <div class="pr">
+        <h3>Technical enablement &amp; AI adoption</h3>
+        <p>Curriculum design and delivery for engineering organizations adopting AI-assisted development. Grounded in formal instructional-design credentials, enterprise training delivery, and two published books on AI-assisted engineering workflow.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="contact" id="contact">
+<section id="deliver">
   <div class="wrap">
-    <p class="eyebrow" style="margin-bottom:18px;">Get in touch</p>
-    <h2 class="big">Have an enterprise platform that needs <span class="accent">building or fixing?</span></h2>
-    <p class="sub">B2B statements of work, architectural audits, fractional leadership, or custom infrastructure builds — contact our principal desk directly to structure the engagement.</p>
-    <div class="links">
-      <a class="btn primary" href="mailto:contact@lanierdevelopments.dev">contact@lanierdevelopments.dev <span class="arr">→</span></a>
-      <a class="btn" href="https://www.linkedin.com/in/kmcallorum" target="_blank" rel="noopener">LinkedIn <span class="arr">↗</span></a>
-      <a class="btn" href="https://github.com/Lanier-Developments" target="_blank" rel="noopener">GitHub <span class="arr">↗</span></a>
+    <div class="shead fade">
+      <h2>Decision records, not slideware</h2>
+      <p class="note">What a client actually receives at the end of an engagement.</p>
     </div>
-    <p class="entity">Lanier Developments LLC — a registered Ohio business entity, structured for Corporate-to-Corporate (C2C), W-2, and 1099 enterprise engagements.</p>
+    <div class="delivs fade">
+      <span class="chip">Architecture decision records</span>
+      <span class="chip">JSON Schemas</span>
+      <span class="chip">Fixture data sets</span>
+      <span class="chip">Runbooks</span>
+      <span class="chip">Reference implementations</span>
+      <span class="chip">Points-and-cost build estimates</span>
+      <span class="chip">Verified remediation briefs</span>
+    </div>
+    <p class="versus fade">Every engagement is scoped in writing before work begins, with a point estimate a client can budget against. Small teams, senior only. The principal stays engaged through delivery rather than handing off after the sale.</p>
   </div>
 </section>
+
+<section id="record">
+  <div class="wrap">
+    <div class="shead fade">
+      <h2>The record behind the firm</h2>
+      <p class="note">Principal's prior enterprise engineering record, Fortune 5 healthcare and telecom — the experience the firm's practice is built on.</p>
+    </div>
+    <div class="record fade">
+      <div class="fig"><div class="n">900,000+</div><div class="d">Repositories migrated between GitHub Enterprise Server and Cloud with issue-triggered automation</div></div>
+      <div class="fig"><div class="n">99.9%</div><div class="d">Release platform availability sustained over five-plus years, across 20,000+ deployments per month</div></div>
+      <div class="fig"><div class="n">210</div><div class="d">Hospitals and clinics served by the enterprise revenue-cycle platform architected by our principal</div></div>
+      <div class="fig"><div class="n">10,000+</div><div class="d">Engineers supported on the enterprise source platform he administered</div></div>
+      <div class="fig"><div class="n">2014</div><div class="d">First enterprise retrieval-based question-answering system built — before RAG had a name</div></div>
+      <div class="fig"><div class="n">40 yrs</div><div class="d">In technology, from Bell Labs network provisioning to production agentic AI</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="products">
+  <div class="wrap">
+    <div class="shead fade">
+      <h2>We ship our own product</h2>
+      <p class="note">Our practices are tested against our own production systems before they reach a client's.</p>
+    </div>
+    <div class="prods fade">
+      <div class="prod">
+        <h3>synthesize-ai</h3>
+        <p>Open-core AI test-automation platform. Public CLI on PyPI, proprietary Studio and Satellite backend on self-hosted infrastructure. Live with external users and an active release cadence. <a href="https://synthesize-ai.dev">synthesize-ai.dev</a></p>
+      </div>
+      <div class="prod">
+        <h3>Open-source portfolio</h3>
+        <p>prompt-optimizer, multi-agent-cli, pytest-agents, and mcp-local-filesystem — maintained with the same security discipline applied to client work, including formal vulnerability briefs and verified remediation. <a href="https://github.com/Lanier-Developments">github.com/Lanier-Developments</a></p>
+      </div>
+      <div class="prod">
+        <h3>Published works</h3>
+        <p>Two books on AI-assisted engineering workflow, including <em>Behind the Steel Door: A Workflow for AI</em>, which documents the multi-model review methodology this firm runs on.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="engage">
+  <div class="wrap">
+    <div class="shead fade">
+      <h2>How we engage</h2>
+      <p class="note">Principal-led delivery, staffed from a standing bench of senior engineers. Bench profiles and references provided at proposal stage under NDA.</p>
+    </div>
+    <div class="cols fade">
+      <ul class="list">
+        <li><span class="k">Fixed scope</span><span class="v">Sprint or milestone delivery with a scope document and point estimate agreed up front.</span></li>
+        <li><span class="k">Time &amp; materials</span><span class="v">Corp-to-corp or W2, for teams that need senior capacity against evolving work.</span></li>
+        <li><span class="k">Retainer</span><span class="v">Architecture and advisory access — design review, decision records, and technical direction.</span></li>
+        <li><span class="k">Enablement</span><span class="v">Curriculum, workshops, and adoption programs for engineering organizations moving to AI-assisted development.</span></li>
+      </ul>
+      <div class="terms">
+        <h3>Standing terms</h3>
+        <ul>
+          <li>Mutual NDA before scoped discovery.</li>
+          <li>Prior-IP carve-out for firm-owned tooling and methods — clients know up front what is theirs and what is ours.</li>
+          <li>Approved commercial AI tooling disclosed and agreed in writing before work begins.</li>
+          <li>No junior markup. No handoff between the people who scope the work and the people who build it.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="contact wrap" id="contact">
+  <h2 class="cta fade">Bring us a decision you're not sure about.</h2>
+  <div class="lines fade">
+    <div>
+      <span class="lbl">Email</span>
+      <p><a href="mailto:mac@lanierdevelopments.com">mac@lanierdevelopments.com</a></p>
+    </div>
+    <div>
+      <span class="lbl">Phone</span>
+      <p><a href="tel:+12202286302">220-228-6302</a></p>
+    </div>
+    <div>
+      <span class="lbl">Principal</span>
+      <p>Kevin “Mac” McAllorum<br><span style="color:var(--dim);font-size:14px">Founder &amp; Principal AI Engineering Consultant</span></p>
+    </div>
+    <div>
+      <span class="lbl">Based</span>
+      <p>Grove City, Ohio<br><span style="color:var(--dim);font-size:14px">Nationwide remote delivery</span></p>
+    </div>
+  </div>
+</div>
+
+</main>
 
 <footer>
-  <div class="wrap foot">
-    <span>LANIER // DEVELOPMENTS LLC</span>
-    <span>KEVIN "MAC" McALLORUM · GROVE CITY, OH</span>
-    <span>© <span id="year"></span> Lanier Developments LLC · Est. 1986</span>
+  <div class="wrap">
+    <span>Lanier Developments, LLC &nbsp;·&nbsp; Ohio Limited Liability Company</span>
+    <span>C2C &nbsp;·&nbsp; W2 &nbsp;·&nbsp; Fixed scope</span>
   </div>
 </footer>
 
 <script>
-  // Local clock — small instrument-panel touch
-  (function () {
-    var clock = document.getElementById('clock');
-    function tick() {
-      var now = new Date();
-      var t = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
-      var z = (now.toLocaleTimeString('en-US', { timeZoneName: 'short' }).split(' ').pop()) || '';
-      clock.textContent = t + ' ' + z;
-    }
-    tick();
-    setInterval(tick, 1000 * 15);
-    document.getElementById('year').textContent = new Date().getFullYear();
-  })();
-</script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* reveal */
+  var els = document.querySelectorAll('.fade');
+  if(reduce){ els.forEach(function(e){e.classList.add('in')}); }
+  else if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    },{threshold:.12});
+    els.forEach(function(e,i){ setTimeout(function(){ io.observe(e); }, i<4? i*90 : 0); });
+  } else { els.forEach(function(e){e.classList.add('in')}); }
+
+  /* review ledger */
+  var data = [
+    { d:'Use a document store as the system of record for agent workflow state.',
+      a:'Approved. The document model fits variable manifest shapes and keeps a single write path.',
+      b:'Approved — but no evidence layer is specified. Nothing proves step 7 actually ran.',
+      f:'Added per-step attestation and a signing model, so every agent action leaves a verifiable record.' },
+    { d:'Let generated tests self-heal by retrying when a selector drifts.',
+      a:'Sound. This removes most of the brittle-test maintenance burden.',
+      b:'The retry loop has no cost ceiling. Token spend is unbounded under drift.',
+      f:'Built a token-reduction layer alongside the healing logic. Cost per test run holds near one cent.' },
+    { d:'Route every model call through a single vendor SDK.',
+      a:'Simplest integration path and the fastest way to ship.',
+      b:'That puts vendor lock-in at the policy layer, where it is most expensive to unwind.',
+      f:'Built a provider-agnostic policy control plane instead — routing and approved-model enforcement stay ours.' }
+  ];
+  var dec=document.getElementById('dec'), ra=document.getElementById('ra'),
+      rb=document.getElementById('rb'), fi=document.getElementById('fi'),
+      ticks=[].slice.call(document.querySelectorAll('.tick'));
+  var idx=0, timer=null;
+
+  function render(i,animate){
+    idx=i; var x=data[i];
+    [dec,ra,rb,fi].forEach(function(n){ if(animate&&!reduce){ n.classList.remove('swap'); void n.offsetWidth; n.classList.add('swap'); } });
+    dec.textContent=x.d; ra.textContent=x.a; rb.textContent=x.b; fi.textContent=x.f;
+    ticks.forEach(function(t,j){ t.setAttribute('aria-selected', j===i?'true':'false'); });
+  }
+  function cycle(){ render((idx+1)%data.length,true); }
+  ticks.forEach(function(t,j){
+    t.addEventListener('click',function(){ render(j,true); if(timer){clearInterval(timer); timer=null;} });
+  });
+  if(!reduce){ timer=setInterval(cycle,7000); }
+})();
+</script>
 </body>
 </html>
